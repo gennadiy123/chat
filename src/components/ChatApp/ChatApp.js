@@ -100,7 +100,7 @@ export const ChatApp = () => {
 
   return (
     <Wrapper>
-      <Button onClick={signOut}>Sign Out</Button>
+      {user && <Button onClick={signOut}>Sign Out</Button>}
       {user ? (
         <MessagesArea>
           <div>
