@@ -33,7 +33,7 @@ export const MessagesWrapper = styled.div`
 
 const UserMessage = styled.p`
   border-radius: 20px;
-  padding: 20px;
+  padding: 16px;
   margin: 0;
   margin-bottom: 10px;
 `;
@@ -50,11 +50,11 @@ export const OtherUserMessage = styled(UserMessage)`
 `;
 
 export const Input = styled.input`
-    border: none;
-    width: 100%;
-    height: 40px;
-    border-radius: 20px;
-    font-size: 20px;
-    padding-left: 14px;
-    margin-top: 30px;
+  border: none;
+  width: calc(100% - 14px);
+  height: 40px;
+  border-radius: 20px;
+  font-size: 20px;
+  padding-left: 14px;
+  margin-top: 30px;
 `;
