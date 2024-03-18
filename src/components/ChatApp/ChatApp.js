@@ -66,6 +66,17 @@ export const ChatApp = () => {
   const signIn = async () => {
     try {
       await auth.signInAnonymously();
+      const snapshot = await firestore
+        .collection("rooms")
+        .doc(roomId)
+        .collection("messages")
+        .orderBy("timestamp")
+        .get();
+      const messagesData = snapshot.docs.map((doc) => ({
+        id: doc.id,
+        ...doc.data(),
+      }));
+      setMessages(messagesData);
     } catch (error) {
       console.error(error.message);
     }
