@@ -2,6 +2,15 @@ import React, { useState, useEffect } from "react";
 import firebase from "firebase/compat/app";
 import "firebase/compat/auth";
 import "firebase/compat/firestore";
+import {
+  Wrapper,
+  Button,
+  MessagesArea,
+  MessagesWrapper,
+  CurrentUserMessage,
+  OtherUserMessage,
+  Input,
+} from "./styledChatApp";
 
 const firebaseConfig = {
   apiKey: process.env.REACT_APP_FIREBASE_API_KEY,
@@ -90,20 +99,24 @@ export const ChatApp = () => {
   };
 
   return (
-    <div>
+    <Wrapper>
+      <Button onClick={signOut}>Sign Out</Button>
       {user ? (
-        <div>
-          <button onClick={signOut}>Sign Out</button>
-          <h2>Welcome, {user.uid}</h2>
+        <MessagesArea>
           <div>
-            {messages.map((message) => (
-              <div key={message.id}>
-                <p>{message.text}</p>
-              </div>
+            {messages?.map((message) => (
+              <MessagesWrapper key={message.id}>
+                {message.userId === user?.uid ? (
+                  <CurrentUserMessage>{message.text}</CurrentUserMessage>
+                ) : (
+                  <OtherUserMessage>{message.text}</OtherUserMessage>
+                )}
+              </MessagesWrapper>
             ))}
           </div>
-          <input
+          <Input
             type="text"
+            placeholder="Message..."
             value={newMessage}
             onChange={(e) => setNewMessage(e.target.value)}
             onKeyDown={(e) => {
@@ -112,11 +125,10 @@ export const ChatApp = () => {
               }
             }}
           />
-          <button onClick={sendMessage}>Send</button>
-        </div>
+        </MessagesArea>
       ) : (
-        <button onClick={signIn}>Sign In</button>
+        <Button onClick={signIn}>Sign In</Button>
       )}
-    </div>
+    </Wrapper>
   );
 };
